@@ -1,6 +1,6 @@
 {
-    "$schema": "https://railway.app/railway.schema.json",
-    "deploy": {
-      "startCommand": "uvicorn telegram_instagram_signal_mvp:app --host 0.0.0.0 --port $PORT"
-    }
+  "$schema": "https://railway.app/railway.schema.json",
+  "deploy": {
+    "startCommand": "python -m uvicorn telegram_instagram_signal_mvp:app --host 0.0.0.0 --port $PORT"
   }
+}
