@@ -26,13 +26,13 @@ LOGOS_DIR = BASE_DIR / "logos"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 cloudinary.config(
-    cloud_name="djrdqlnd8",
-    api_key="187785268371918",
-    api_secret="8OT_O00U45vkBZh5KnMTOlUMKAQ",
+    cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME", ""),
+    api_key=os.getenv("CLOUDINARY_API_KEY", ""),
+    api_secret=os.getenv("CLOUDINARY_API_SECRET", ""),
 )
 
-IG_USER_ID = "17841438842981772"
-ACCESS_TOKEN = "EAAZBLwg0JhpwBRGTG9KuZAZC1ZBp7aJZCWhObhKgElJ9wZBQak1yji31KctVjdNqJ1Jt6SyYZAmCHz2IpAlWPY5TsGMIEWJFeJoMiGAbidm0A62w8xafuWlJ47iNLPEn8tIIYyASZBz73h12f1ecVINLFxyPFW9HnYI7VJZCfr3Fb3hoN3IsoicoMiZAcpZAyiizRimzL6XtejacHa1bPbGsI8nijAyZC9ZAZA6ur3zmUQfk655Xc89KWTkQxdaI61LoZADxocjbgRybyyMOZCbVQS6A"
+IG_USER_ID = os.getenv("IG_USER_ID", "")
+ACCESS_TOKEN = os.getenv("INSTAGRAM_ACCESS_TOKEN", "")
 
 app = FastAPI(title="Telegram Signal Image Generator MVP")
 
