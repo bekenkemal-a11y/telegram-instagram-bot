@@ -34,6 +34,10 @@ cloudinary.config(
 IG_USER_ID = os.getenv("IG_USER_ID", "")
 ACCESS_TOKEN = os.getenv("INSTAGRAM_ACCESS_TOKEN", "")
 
+INSTAGRAM_APP_ID = os.getenv("INSTAGRAM_APP_ID", "")
+INSTAGRAM_APP_SECRET = os.getenv("INSTAGRAM_APP_SECRET", "")
+INSTAGRAM_REDIRECT_URI = os.getenv("INSTAGRAM_REDIRECT_URI", "")
+
 app = FastAPI(title="Telegram Signal Image Generator MVP")
 
 
@@ -360,7 +364,7 @@ def build_instagram_caption(parsed: ParsedMessage) -> str:
 
 
 def post_to_instagram(image_url: str, caption: str) -> dict:
-    if not ACCESS_TOKEN or ACCESS_TOKEN == "BURAYA_INSTAGRAM_ACCESS_TOKEN":
+    if not ACCESS_TOKEN:
         raise ValueError("Instagram access token girilmemiş")
 
     create_url = f"https://graph.facebook.com/v19.0/{IG_USER_ID}/media"
@@ -397,6 +401,25 @@ def post_to_instagram(image_url: str, caption: str) -> dict:
         "media_response": create_data,
         "publish_response": publish_data,
     }
+
+
+# =========================
+# INSTAGRAM LOGIN HELPERS
+# =========================
+@app.get("/exchange-code")
+def exchange_code(code: str):
+    url = "https://api.instagram.com/oauth/access_token"
+
+    data = {
+        "client_id": INSTAGRAM_APP_ID,
+        "client_secret": INSTAGRAM_APP_SECRET,
+        "grant_type": "authorization_code",
+        "redirect_uri": INSTAGRAM_REDIRECT_URI,
+        "code": code,
+    }
+
+    r = requests.post(url, data=data, timeout=60)
+    return r.json()
 
 
 # =========================
