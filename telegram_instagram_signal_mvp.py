@@ -367,7 +367,7 @@ def post_to_instagram(image_url: str, caption: str) -> dict:
     if not ACCESS_TOKEN:
         raise ValueError("Instagram access token girilmemiş")
 
-    create_url = f"https://graph.facebook.com/v19.0/{IG_USER_ID}/media"
+    create_url = f"https://graph.instagram.com/{IG_USER_ID}/media"
     create_payload = {
         "image_url": image_url,
         "caption": caption,
@@ -382,7 +382,7 @@ def post_to_instagram(image_url: str, caption: str) -> dict:
     if not creation_id:
         raise ValueError(f"Instagram media oluşturulamadı: {create_data}")
 
-    publish_url = f"https://graph.facebook.com/v19.0/{IG_USER_ID}/media_publish"
+    publish_url = f"https://graph.instagram.com/{IG_USER_ID}/media_publish"
     publish_payload = {
         "creation_id": creation_id,
         "access_token": ACCESS_TOKEN,
